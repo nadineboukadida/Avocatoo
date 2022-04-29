@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet, Dimensions, TextInput, TouchableOpacity 
 import React, { useState } from 'react'
 import Button from '../Components/Button'
 
-export default function RegisterPage({ changeAuth }) {
+export default function RegisterPage({ changeAuth, navigation }) {
     const register = async function () {
         try {
             const response = await fetch('http://10.0.2.2:5000/auth/register', {
@@ -16,8 +16,15 @@ export default function RegisterPage({ changeAuth }) {
                     password: password
                 })
             });
-            const json = response;
-            console.log(json)
+            const json = await response.json();
+            const statusCode = response.status
+            if (statusCode != 201) {
+                seterror(true)
+            }
+            else {
+                navigation.navigate('login', {})
+            }
+
         }
         catch (e) {
             console.error(e)
@@ -26,6 +33,8 @@ export default function RegisterPage({ changeAuth }) {
     }
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, seterror] = useState(false);
+
     return (
         <View style={styles.container}>
 

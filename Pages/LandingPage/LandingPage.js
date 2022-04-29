@@ -8,6 +8,7 @@ import RegisterPage from '../RegisterPage/RegisterPage'
 import Constants from 'expo-constants';
 console.log(Constants.deviceName);
 export default function LandingPage({navigation}) {
+ 
     const [slide, setslide] = useState(0);
     const [login, setlogin] = useState(true);
 
@@ -29,7 +30,7 @@ export default function LandingPage({navigation}) {
     }]} >
 <LandingElement onpressNext={next} onpressSkip={skip} image = {problem} text= "No neet to panic in serious situations anymore.. Avocatoo is here"/>
 <LandingElement onpressNext={next} onpressSkip={skip} button={1} image = {solution} text= "We provide you with all the law informations you need for your situation"/>
-{login? <LoginPage  changeAuth={changeAuth}></LoginPage> : <RegisterPage changeAuth={changeAuth}></RegisterPage>}
+{!login? <LoginPage navigation={navigation} changeAuth={changeAuth}></LoginPage> : <RegisterPage  navigation={navigation}  changeAuth={changeAuth}></RegisterPage>}
     </View>
   )
 }

@@ -2,7 +2,9 @@ import { View, Text, Image, StyleSheet, Dimensions, TextInput, TouchableOpacity 
 import React, { useState } from 'react'
 import login from "../../assets/login.png"
 import Button from '../Components/Button'
-export default function LoginPage({ changeAuth,navigation }) {
+export default function LoginPage({ changeAuth,navigation}) {
+  
+
     const login = async function () {
         try {
             const response = await fetch('http://10.0.2.2:5000/auth/login', {
@@ -16,9 +18,17 @@ export default function LoginPage({ changeAuth,navigation }) {
                     password: password
                 })
             });
-            const json = response.json();
-            console.log(json)
-            navigation.push('home')
+            const json = await response.json();
+            const statusCode = response.status
+            if (statusCode != 201) {
+                seterror(true)
+                console.log(json)
+
+            }
+            else {
+                console.log(json)
+                navigation.navigate('home', {rep : json})
+            }
 
         }
         catch (e) {
@@ -28,6 +38,8 @@ export default function LoginPage({ changeAuth,navigation }) {
     }
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, seterror] = useState(false);
+
     return (
         <View style={styles.container}>
 
@@ -81,8 +93,9 @@ const styles = StyleSheet.create({
     container: {
         width: Dimensions.get('window').width,
         alignItems: 'center',
-        justifyContent: 'center'
-
+      backgroundColor:'#B4B6FC',
+      justifyContent: 'center',
+height:Dimensions.get('window').height,
     },
     image: {
         width: '40%',

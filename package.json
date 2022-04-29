@@ -9,7 +9,11 @@
     "web": "expo start --web",
     "eject": "expo eject"
   },
- 
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  },
   "dependencies": {
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
