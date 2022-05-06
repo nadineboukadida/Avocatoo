@@ -13,6 +13,7 @@ import likeSelected from '../../assets/likeSelected.png'
 import { useEffect } from 'react/cjs/react.production.min';
 import * as Font from 'expo-font';
 import Home from './Home/Home';
+
 export default function HomePage({ route, navigation }) {
   const [page, setpage] = useState(0);
 

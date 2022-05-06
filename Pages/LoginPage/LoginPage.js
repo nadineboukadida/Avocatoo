@@ -2,8 +2,9 @@ import { View, Text, Image, StyleSheet, Dimensions, TextInput, TouchableOpacity 
 import React, { useState } from 'react'
 import login from "../../assets/login.png"
 import Button from '../Components/Button'
-export default function LoginPage({ changeAuth,navigation}) {
-  
+
+export default function LoginPage({ changeAuth,navigation}) {  
+    
 
     const login = async function () {
         try {
@@ -34,8 +35,8 @@ export default function LoginPage({ changeAuth,navigation}) {
         catch (e) {
             console.error(e)
         }
-
     }
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, seterror] = useState(false);
