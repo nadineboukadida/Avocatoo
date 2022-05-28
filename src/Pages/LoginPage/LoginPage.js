@@ -1,9 +1,9 @@
 import { View, Text, Image, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import login from "../../../assets/login.png"
-import Button from '../Components/Button'
+import Button from '../../Components/Button'
 
-export default function LoginPage({ changeAuth,navigation}) {  
+export default function LoginPage({ navigation}) {
     
 
     const login = async function () {
@@ -73,7 +73,7 @@ export default function LoginPage({ changeAuth,navigation}) {
                 <Text style={styles.loginText}>LOGIN</Text>
             </TouchableOpacity>
             <View style={[styles.containerButtons, { justifyContent: 'flex-end' }]}>
-                <Button align={1} text='Register' color={'#3C2C5B'} onclick={changeAuth}></Button>
+                <Button align={1} text='Register' color={'#3C2C5B'} onclick={() => navigation.navigate('Register')}></Button>
             </View>
 
         </View>

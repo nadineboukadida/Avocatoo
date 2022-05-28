@@ -1,8 +1,8 @@
 import { View, Text, Image, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import Button from '../Components/Button'
+import Button from '../../Components/Button'
 
-export default function RegisterPage({ changeAuth, navigation }) {
+export default function RegisterPage({ navigation }) {
     const register = async function () {
         try {
             const response = await fetch('http://10.0.2.2:5000/auth/register', {
@@ -66,7 +66,7 @@ export default function RegisterPage({ changeAuth, navigation }) {
             </TouchableOpacity>
             <View style={[styles.containerButtons, { justifyContent: 'flex-end' }]}>
 
-                <Button align={1} text='Login' color={'#3C2C5B'} onclick={changeAuth}></Button>
+                <Button align={1} text='Login' color={'#3C2C5B'} onclick={() => navigation.navigate('Login')}></Button>
             </View>
 
         </View>

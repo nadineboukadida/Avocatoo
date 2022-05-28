@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
-import Button from '../Components/Button';
+import Button from '../../Components/Button';
 import { Dimensions } from 'react-native';
 export default function LandingElement({ image, text, onpressNext, onpressSkip, button }) {
   return (

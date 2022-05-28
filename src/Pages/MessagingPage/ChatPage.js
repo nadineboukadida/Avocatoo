@@ -8,9 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import Button from "../Components/Button";
 import MessagingService from "../../Services/Messaging/MessagingService";
-import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 export default function ChatPage({ route, navigation }) {
   const [fromId, setFromId] = useState(null);
