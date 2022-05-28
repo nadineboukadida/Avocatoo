@@ -1,7 +1,6 @@
 import Question from "./Question";
 import {User} from "./User";
 import Message from "./Message";
-import {Category} from "./Category";
 
 export default class Ticket{
     id:number=0
