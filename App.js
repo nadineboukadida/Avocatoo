@@ -1,10 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import LandingPage from "./Pages/LandingPage/LandingPage";
-import HomePage from "./Pages/HomePage/HomePage";
-import LoginPage from "./Pages/LoginPage/LoginPage";
-import ChatPage from "./Pages/MessagingPage/ChatPage";
+import LandingPage from "./src/Pages/LandingPage/LandingPage";
+import HomePage from "./src/Pages/HomePage/HomePage";
+import LoginPage from "./src/Pages/LoginPage/LoginPage";
+import ChatPage from "./src/Pages/MessagingPage/ChatPage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 

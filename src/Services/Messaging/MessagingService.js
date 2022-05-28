@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { API_PATH } from "../../api-path";
+import { API_PATH } from "../../../api-path";
 
 
 export default class MessagingService {

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View , Image } from 'react-native'
 import React, { useState } from 'react'
-import girl from '../../../assets/girl.png'
-import guy from '../../../assets/guy.png'
+import girl from '../../../../assets/girl.png'
+import guy from '../../../../assets/guy.png'
 
 export default function LPinfo({info,selected}) {
 

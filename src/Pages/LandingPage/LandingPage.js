@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import React, {useState} from 'react'
 import LandingElement from './LandingElement'
-import problem from "../../assets/problem.png"
-import solution from "../../assets/solution.png"
+import problem from "../../../assets/problem.png"
+import solution from "../../../assets/solution.png"
 import LoginPage from '../LoginPage/LoginPage'
 import RegisterPage from '../RegisterPage/RegisterPage'
 import Constants from 'expo-constants';

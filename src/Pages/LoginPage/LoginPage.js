@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import login from "../../assets/login.png"
+import login from "../../../assets/login.png"
 import Button from '../Components/Button'
 
 export default function LoginPage({ changeAuth,navigation}) {  

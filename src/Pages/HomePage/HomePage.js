@@ -3,13 +3,13 @@ import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useFonts } from 'expo-font';
 import { Dimensions } from 'react-native';
-import profil from '../../assets/profil.png'
-import search from '../../assets/search.png'
-import searchSelected from '../../assets/searchSelected.png'
-import news from '../../assets/news.png'
-import newsSelected from '../../assets/newsSelected.png'
-import like from '../../assets/like.png'
-import likeSelected from '../../assets/likeSelected.png'
+import profil from '../../../assets/profil.png'
+import search from '../../../assets/search.png'
+import searchSelected from '../../../assets/searchSelected.png'
+import news from '../../../assets/news.png'
+import newsSelected from '../../../assets/newsSelected.png'
+import like from '../../../assets/like.png'
+import likeSelected from '../../../assets/likeSelected.png'
 import { useEffect } from 'react/cjs/react.production.min';
 import * as Font from 'expo-font';
 import Home from './Home/Home';
