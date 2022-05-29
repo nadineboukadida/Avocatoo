@@ -93,8 +93,8 @@ export const AuthProvider = ({children}:any) => {
         }
     };
 
-    useEffect(() => {
-        isLoggedIn();
+    useEffect( () => {
+         isLoggedIn();
     }, []);
 
     return (
