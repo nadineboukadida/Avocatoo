@@ -1,41 +1,12 @@
 import { View, Text, Image, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import login from "../../../assets/login.png"
 import Button from '../../Components/Button'
+import { AuthContext } from '../../context/AuthContext';
 
 export default function LoginPage({ navigation}) {
     
-
-    const login = async function () {
-        try {
-            const response = await fetch('http://10.0.2.2:5000/auth/login', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
-            });
-            const json = await response.json();
-            const statusCode = response.status
-            if (statusCode != 201) {
-                seterror(true)
-                console.log(json)
-
-            }
-            else {
-                console.log(json)
-                navigation.navigate('home', {rep : json})
-            }
-
-        }
-        catch (e) {
-            console.error(e)
-        }
-    }
+    const {login} = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -69,7 +40,7 @@ export default function LoginPage({ navigation}) {
                 </TouchableOpacity>
 
             </View>
-            <TouchableOpacity onPress={() => login()} style={styles.loginBtn}>
+            <TouchableOpacity onPress={() => login(email,password)} style={styles.loginBtn}>
                 <Text style={styles.loginText}>LOGIN</Text>
             </TouchableOpacity>
             <View style={[styles.containerButtons, { justifyContent: 'flex-end' }]}>

@@ -27,12 +27,13 @@ const Navigation = () => {
                     />
                 ) : token ? (
                     <>
-                        <Stack.Screen name="welcome" component={LandingPage}/>
-                        <Stack.Screen name="Home" component={HomePage}/>
-                        <Stack.Screen name="chat" component={ChatPage}/></>
+                    
+                        <Stack.Screen name="Home" component={HomePage} options={{headerShown: false}}/>
+                        <Stack.Screen name="chat" component={ChatPage} options={{headerShown: false}}/></>
 
                 ) : (
                     <>
+                        <Stack.Screen name="welcome" component={LandingPage}/>
                         <Stack.Screen
                             name="Login"
                             component={LoginPage}
