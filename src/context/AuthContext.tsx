@@ -20,7 +20,7 @@ export const AuthProvider = ({children}:any) => {
 
     const register = (name: string, email: string, password: string) => {
         setIsLoading(true);
-         fetch(`${BASE_PATH}/register`,
+         fetch(`${BASE_PATH}/auth/register`,
             {
                 method: 'POST',
                 body: JSON.stringify({name, email, password})
@@ -41,18 +41,21 @@ export const AuthProvider = ({children}:any) => {
 
     const login = (email:string, password:string) => {
         setIsLoading(true);
+         fetch(`${BASE_PATH}/auth/login`,{
+                headers: {
+                        Accept: 'application/json',
+                         'Content-Type': 'application/json' },
 
-            fetch(`${BASE_PATH}/login`,{
                 method: 'POST',
                 body: JSON.stringify({email,password})
             })
                 .then(res => res.json())
                 .then(async (res) => {
-                let token = res.data?.token;
-                console.log(token);
+                let token = res.jwt;
                     setToken(token);
                 await SecureStore.setItemAsync('token', token);
                 setIsLoading(false);
+        
             })
             .catch(e => {
                 console.log(`login error ${e}`);

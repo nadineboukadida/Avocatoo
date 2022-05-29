@@ -22,7 +22,7 @@ export default function RegisterPage({ navigation }) {
                 seterror(true)
             }
             else {
-                navigation.navigate('login', {})
+                navigation.navigate('Login', {})
             }
 
         }
