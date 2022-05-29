@@ -3,7 +3,6 @@ import {API_PATH} from "../../api-path";
 import {StandardFetcher} from "../Services/Fetcher/StandardFetcher";
 import * as SecureStore from "expo-secure-store";
 
-
 export const AuthContext = React.createContext({
     isLoading:true,
     token:'',
@@ -28,7 +27,8 @@ export const AuthProvider = ({children}:any) => {
             .then(res => res.json())
             .then(async res => {
                 let token = res.data?.token;
-                setToken(token);
+                if (token) setToken(token);
+                else throw new Error('token not found');
                 await SecureStore.setItemAsync('token', token);
                 setIsLoading(false);
                 console.log(token);
@@ -39,28 +39,31 @@ export const AuthProvider = ({children}:any) => {
             });
     };
 
-    const login = (email:string, password:string) => {
-        setIsLoading(true);
-         fetch(`${BASE_PATH}/auth/login`,{
+    const login = async (email: string, password: string) => {
+        try {
+            setIsLoading(true);
+            const res = await fetch(`${BASE_PATH}/auth/login`, {
                 headers: {
-                        Accept: 'application/json',
-                         'Content-Type': 'application/json' },
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
 
                 method: 'POST',
-                body: JSON.stringify({email,password})
+                body: JSON.stringify({email, password})
             })
-                .then(res => res.json())
-                .then(async (res) => {
-                let token = res.jwt;
-                    setToken(token);
-                await SecureStore.setItemAsync('token', token);
-                setIsLoading(false);
-        
-            })
-            .catch(e => {
-                console.log(`login error ${e}`);
-                setIsLoading(false);
-            });
+
+            const parsed = await res.json();
+            let token = parsed.jwt;
+            if (token) setToken(token);
+            else throw new Error('token not found');
+            await SecureStore.setItemAsync('token', token);
+            setIsLoading(false);
+
+        } catch (e) {
+            console.log(`login error ${e}`);
+            setIsLoading(false);
+        }
+        ;
     };
 
     const logout = () => {
