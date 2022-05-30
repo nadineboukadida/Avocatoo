@@ -8,7 +8,7 @@ export default function Button({text , color , dir , onclick  }) {
     paddingHorizontal: 30 , borderBottomLeftRadius:dir==0?0:20 , borderTopLeftRadius:dir==0?0:20
     ,borderBottomRightRadius: dir==0?20:0, borderTopRightRadius: dir==0?20:0 , marginTop: dir==0?30:0
     }} > 
-        <Text style={{color: 'white' , fontSize : 15, justifyContent:'center',alignContent:'center',}}>{text}</Text>
+        <Text style={{color: 'black' , fontSize : 15, justifyContent:'center',alignContent:'center',}}>{text}</Text>
     </View>
   )
 }

@@ -7,7 +7,7 @@ export const AuthContext = React.createContext({
     isLoading:true,
     token:'',
     splashLoading:false,
-    register:(name: string, email: string, password: string)=>{},
+    register:(infos:{})=>{},
     login:(email:string, password:string)=>{},
     logout:()=>{},
 });
@@ -17,12 +17,12 @@ export const AuthProvider = ({children}:any) => {
     const [isLoading, setIsLoading] = useState(false);
     const [splashLoading, setSplashLoading] = useState(false);
 
-    const register = (name: string, email: string, password: string) => {
+    const register = (infos:{}) => {
         setIsLoading(true);
          fetch(`${BASE_PATH}/auth/register`,
             {
                 method: 'POST',
-                body: JSON.stringify({name, email, password})
+                body: JSON.stringify(infos)
             })
             .then(res => res.json())
             .then(async res => {

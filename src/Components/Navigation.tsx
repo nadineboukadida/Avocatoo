@@ -33,7 +33,7 @@ const Navigation = () => {
 
                 ) : (
                     <>
-                        <Stack.Screen name="welcome" component={LandingPage}/>
+                        {/*<Stack.Screen name="welcome" component={LandingPage}/>*/}
                         <Stack.Screen
                             name="Login"
                             component={LoginPage}
