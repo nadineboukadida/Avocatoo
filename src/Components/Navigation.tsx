@@ -10,6 +10,8 @@ import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import SplashScreen from "../Pages/Splash/SplashPage";
 import ChatPage from "../Pages/MessagingPage/ChatPage";
 import LandingPage from "../Pages/LandingPage/LandingPage";
+import Archive from '../Pages/Archive/ArchivePage';
+import ArchivePage from '../Pages/Archive/ArchivePage';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,8 +29,8 @@ const Navigation = () => {
                     />
                 ) : token ? (
                     <>
-                    
                         <Stack.Screen name="Home" component={HomePage} options={{headerShown: false}}/>
+                    <Stack.Screen name="archive" component={ArchivePage} options={{headerShown: false}}/>
                         <Stack.Screen name="chat" component={ChatPage} options={{headerShown: false}}/></>
 
                 ) : (
