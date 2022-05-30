@@ -3,12 +3,12 @@ import React, { useState } from 'react'
 import girl from '../../../../assets/girl.png'
 import guy from '../../../../assets/guy.png'
 
-export default function LPinfo({info,selected}) {
+export default function LPinfo({info}) {
 
   return (
     <View style={styles.container}>
 {info.gender=="F"&& 
-<View style={[{paddingRight:5 ,paddingLeft:5,paddingBottom:5}, selected&&styles.selected]}>
+<View style={[{paddingRight:5 ,paddingLeft:5,paddingBottom:5}]}>
     <Image style={styles.img} source={girl}></Image>
 </View>
 }

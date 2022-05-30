@@ -1,19 +1,27 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useFonts } from 'expo-font';
-import { Dimensions } from 'react-native';
-import profil from '../../../assets/profil.png'
-import search from '../../../assets/search.png'
-import searchSelected from '../../../assets/searchSelected.png'
-import news from '../../../assets/news.png'
-import newsSelected from '../../../assets/newsSelected.png'
-import like from '../../../assets/like.png'
-import likeSelected from '../../../assets/likeSelected.png'
-import { useEffect } from 'react/cjs/react.production.min';
-import * as Font from 'expo-font';
-import Home from './Home/Home';
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  PushNotificationIOS,
+} from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useFonts } from "expo-font";
+import { Dimensions } from "react-native";
+import profil from "../../../assets/profil.png";
+import notif from "../../../assets/notif.png";
+import search from "../../../assets/search.png";
+import searchSelected from "../../../assets/searchSelected.png";
+import news from "../../../assets/news.png";
+import newsSelected from "../../../assets/newsSelected.png";
+import like from "../../../assets/like.png";
+import likeSelected from "../../../assets/likeSelected.png";
+import { useEffect } from "react/cjs/react.production.min";
+import * as Font from "expo-font";
+import Home from "./Home/Home";
+import Feed from "../Feed/Feed";
 export default function HomePage({ route, navigation }) {
   const [page, setpage] = useState(0);
 
@@ -21,92 +29,131 @@ export default function HomePage({ route, navigation }) {
     <SafeAreaView>
       <View style={styles.container}>
         <View style={styles.containerHeader}>
-          <Text style={styles.title}>Welcome, <Text style={{ color: '#3C2C5B' , fontWeight:'500' }} >name name</Text> </Text>
+          <View style={styles.title}>
+            <Image
+              style={styles.image2}
+              source={notif}
+            ></Image>
+          </View>
           <View style={{ height: 50, padding: 5 }}>
             <Image style={styles.image} source={profil}></Image>
           </View>
         </View>
-        <View style={styles.navigation}>
-     
-          <TouchableOpacity style={{ alignItems: 'center' }} onPress={()=>setpage(0)}>
-            <Image style={styles.navigationImg} source={page !=0 ? news : newsSelected}></Image>
-            <Text style={page==0 ? styles.Selectedtext :styles.basicText }>Home</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ alignItems: 'center' }} onPress={()=>setpage(1)}>
-            <Image style={styles.navigationImg} source={page !=1 ? search : searchSelected}></Image>
-            <Text style={page==1 ? styles.Selectedtext :styles.basicText}>Search</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ alignItems: 'center' }} onPress={()=>setpage(2)}>
-            <Image style={styles.navigationImg} source={page !=2 ?like : likeSelected}></Image>
-            <Text style={page==2 ? styles.Selectedtext :styles.basicText}>History</Text>
 
-          </TouchableOpacity>
-
-
+        <View
+          style={{
+            width: Dimensions.get("window").width,
+            alignItems: "center",
+          }}
+        >
+          <View style={styles.search}></View>
+          <View style={styles.navigation}>
+            <TouchableOpacity
+              style={[styles.navigationItem, page == 0 && styles.selected]}
+              onPress={() => setpage(0)}
+            >
+              <Text style={styles.basicText}>Feed</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.navigationItem, page == 1 && styles.selected]}
+              onPress={() => setpage(1)}
+            >
+              <Text style={styles.basicText}>Help</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.navigationItem, page == 2 && styles.selected]}
+              onPress={() => setpage(2)}
+            >
+              <Text style={styles.basicText}>Archive</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.body}>
-          {page==0&&<Home></Home>}
+          {/* {page==0&&<Home></Home>} */}
+          {page==0&&<Feed></Feed>}
+          {page==1&&<Home></Home>}
+
+
         </View>
       </View>
-
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
+  search: {},
   container: {
-    backgroundColor: "#9EB7CF",
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
+    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width,
     paddingVertical: 10,
+    backgroundColor: "#F3F3F3",
   },
   containerHeader: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: Dimensions.get('window').width,
-    flexDirection: 'row',
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: Dimensions.get("window").width,
+    flexDirection: "row-reverse",
     paddingLeft: 10,
     paddingVertical: 10,
     paddingRight: 20,
   },
   title: {
     fontSize: 17,
-    color: "#9EA0FF",
+    color: "#BEBCF3",
     letterSpacing: 2,
-    paddingLeft:30,
-    paddingRight:20,
-    backgroundColor:'white',
-    padding:10,
-    marginLeft:-10,
-    borderTopRightRadius:20,
-    borderBottomRightRadius:20
-
+    backgroundColor: "white",
+    padding: 5,
+    paddingHorizontal:8,
+    height:40,
+    marginRight: -10,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
   },
   image: {
     width: 40,
     height: 40,
+    borderRadius: 40,
+    borderColor: "#E5E5DF",
+    borderWidth: 3,
+    marginLeft: -10,
+  
+  },
+  image2: {
+    width: 28,
+    height: 28,
   },
   navigation: {
-    width: Dimensions.get('window').width,
+    width: "90%",
     // padding: 20,
-    paddingTop:10,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexDirection: 'row',
-
+    paddingTop: 10,
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 5,
+    flexDirection: "row",
+    backgroundColor: "#E5E5DF",
+    paddingTop: 5,
+    borderRadius: 5,
+    paddingBottom: 5,
+  },
+  navigationItem: {
+    alignItems: "center",
+    paddingHorizontal: 35,
+    paddingVertical: 5,
+    borderRadius: 5,
+  },
+  selected: {
+    backgroundColor: "white",
   },
   navigationImg: {
     width: 75,
     height: 75,
   },
-  Selectedtext: {
-      color:'#3C2C5B'
-  },
+  Selectedtext: {},
   basicText: {
-    color: 'white'
+    color: "#3C2C5B",
   },
   body: {
-    paddingTop:10,
-    height: '100%',
-  }
-})
+    paddingTop: 10,
+    height: "100%",
+  },
+});
