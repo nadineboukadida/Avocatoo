@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
   navigation: {
     width: "90%",
     // padding: 20,
-    paddingTop: 10,
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 5,
