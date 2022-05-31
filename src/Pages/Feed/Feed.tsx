@@ -58,15 +58,17 @@ const Feed = () => {
     }
     return tab;
   };
- 
+ const cat = [{name:'category1'},{name:'category2'},{name:'category2'}];
+ const catComp=[]
+ cat.forEach((e,ind)=> {
+     
+      catComp.push( <Category key={ind} text={e.name} color ={'#FF6957'}></Category>)
+ })
   return (
     <View style={{paddingBottom:110}}>
       <View style={{width:'90%', alignSelf:'center',paddingBottom:5}}>
           <ScrollView horizontal={true}>
-      <Category  text={"olaola"} color ={'#FF6957'}></Category>
-      <Category  text={"olaola"} color ={'#F7D88C'}></Category>
-      <Category  text={"olaola"} color ={'black'}></Category>
-      <Category  text={"olaola"} color ={'black'}></Category>
+      {catComp}
 
 
 
