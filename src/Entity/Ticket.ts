@@ -1,13 +1,17 @@
 import Question from "./Question";
 import {User} from "./User";
 import Message from "./Message";
+import moment, {Moment} from "moment";
+import {MomentDateHelper} from "../Modules/Standard/Date/MomentDateHelper";
 
 export default class Ticket{
-    id:number=0
+    id:string=''
     ieRead:boolean=false
     isTyping:boolean=false
     question:Question|null=null
-    lawProfessional:User|null=null
+    closedAt:Moment|null=moment()
+    closed:boolean=false
+    lp:User|null=null
     messages:Message[]=[]
     public static hydrateData(data:any) {
         let output = new Ticket();
@@ -15,7 +19,9 @@ export default class Ticket{
         output.ieRead = data.ieRead
         output.isTyping = data.isTyping
         output.question = Question.hydrateData(data.question)
-        output.lawProfessional=User.hydrateData(data.lawProfessional)
+        output.lp=User.hydrateData(data.lp)
+        output.closed=data.closed
+        output.closedAt=MomentDateHelper.createMomentDateFromAny(data.closedAt)
         output.messages=data.messages?.length?data.messages.map((data:any)=>Message.hydrateData(data)):[]
         return output;
     }

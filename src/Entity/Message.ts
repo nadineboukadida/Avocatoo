@@ -1,21 +1,24 @@
-import {IPerson, Lawprofessional} from "./User";
+import {IUser, User} from "./User";
 import moment, {Moment} from "moment";
-import { Client } from "./Client";
+
 import {MomentDateHelper} from "../Modules/Standard/Date/MomentDateHelper";
+import Ticket from "./Ticket";
 
 export default class Message {
-    id:number=0
-    from:IPerson|null=null
-    to:IPerson|null=null
+    id:string=''
+    from:IUser|null=null
+    to:IUser|null=null
     date:Moment|null=moment()
     content:string=''
+    ticket:Ticket|null=null
     public static hydrateData(data:any):Message {
         let output = new Message();
         output.id = data.id
-        output.from = data.from.image? Lawprofessional.hydrateData(data.from): Client.hydrateData(data.from)
-        output.to = data.to.image? Lawprofessional.hydrateData(data.to): Client.hydrateData(data.to)
+        output.from = User.hydrateData(data?.from??null)
+        output.to = User.hydrateData(data?.to??null)
         output.date = MomentDateHelper.createMomentDateFromAny(data.date)
         output.content=data.content
+        output.ticket=Ticket.hydrateData(data?.ticket??null)
         return output;
     }
     public static deHydrateData(data:Message|null):any{
@@ -27,6 +30,7 @@ export default class Message {
         output.to = data.to?.id
         output.date = MomentDateHelper.createOutputApiFromAny(data.date)
         output.content=data.content
+        output.ticket=data?.ticket?.id
         return output;
     }
 }

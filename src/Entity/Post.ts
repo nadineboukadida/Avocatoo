@@ -1,19 +1,22 @@
 import {User} from "./User";
+import {Category} from "./Category";
 
 
 export  class Post{
-    id:number=0
+    id:string=''
     title:string=''
     content:string=''
     isAccepted:boolean=false
-    lawProfessional:User|null=null
+    creator:User|null=null
+    category:Category|null=null
     public static hydrateData(data:any) {
         let output = new Post();
         output.id = data.id
         output.title = data.title
         output.content = data.content
         output.isAccepted = data.isAccepted
-        output.lawProfessional=User.hydrateData(data.lawProfessional)
+        output.creator=User.hydrateData(data?.creator??null)
+        output.category=Category.hydrateData(data?.category??null)
         return output;
     }
     public static deHydrateData(data:Post|null):any{
@@ -24,7 +27,7 @@ export  class Post{
         output.title = data.title
         output.content = data.content
         output.isAccepted = data.isAccepted
-        output.lawProfessional=data.lawProfessional?.id
+        output.creator=data.creator?.id
         return output
     }
 }
