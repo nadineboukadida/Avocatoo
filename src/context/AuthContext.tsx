@@ -17,26 +17,32 @@ export const AuthProvider = ({children}:any) => {
     const [isLoading, setIsLoading] = useState(false);
     const [splashLoading, setSplashLoading] = useState(false);
 
-    const register = (infos:{}) => {
-        setIsLoading(true);
-         fetch(`${BASE_PATH}/auth/register`,
-            {
-                method: 'POST',
-                body: JSON.stringify(infos)
-            })
-            .then(res => res.json())
-            .then(async res => {
-                let token = res.data?.token;
-                if (token) setToken(token);
-                else throw new Error('token not found');
-                await SecureStore.setItemAsync('token', token);
+    const register = async (infos: {}) => {
+        try {
+            setIsLoading(true);
+            const res = await fetch(`${BASE_PATH}/auth/register/client`,
+                {
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST',
+                    body: JSON.stringify(infos)
+                })
+
+            const parsed = await res.json();
+            console.log(parsed.message)
+            if(parsed.statusCode==201){
                 setIsLoading(false);
-                console.log(token);
-            })
-            .catch(e => {
-                console.log(`register error ${e}`);
-                setIsLoading(false);
-            });
+                return {status:true,msg:'succès'}
+            }
+           return {status:false,msg:parsed.message}
+        } catch (e) {
+            console.log(`login error ${e}`);
+            setIsLoading(false);
+            return {status:false,msg:'Reessayer'}
+        }
+        ;
     };
 
     const login = async (email: string, password: string) => {
@@ -53,7 +59,7 @@ export const AuthProvider = ({children}:any) => {
             })
 
             const parsed = await res.json();
-            let token = parsed.jwt;
+            let token = parsed?.data?.jwt;
             if (token) setToken(token);
             else throw new Error('token not found');
             await SecureStore.setItemAsync('token', token);

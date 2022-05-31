@@ -7,6 +7,8 @@ import {AuthContext} from "../../context/AuthContext";
 import logo from "../../../assets/logo/logo.png";
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import Moment from "moment";
+import { useToast } from 'native-base';
+import toast from "react-native/Libraries/Components/ToastAndroid/ToastAndroid";
 
 
 export default function RegisterPage({navigation}) {
@@ -14,20 +16,20 @@ export default function RegisterPage({navigation}) {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
+    const[LgnB,setLgnb]=useState(true)
     const [password, setPassword] = useState('');
-    const [error, setError] = useState({email: false, password: false, phone: false, button: true});
+    const [error, setError] = useState({email: false, password: false, phone: false});
     const [show, setShow] = React.useState(false);
-    const [infos,setInfos]=useState({firstName:'',lastName:'',address:''});
-    const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$");
+    const [infos,setInfos]=useState({firstName:'',lastName:''});
+    const passwordRegex = new RegExp("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
     const emailRegex = new RegExp("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$");
     const numberReg = new RegExp("^[0-9]+$");
+    const toast = useToast();
     const handleChange=(value, name)=>{
         switch (name){
             case "firstName": setInfos({...infos,firstName: value});
             break;
             case "lastName":setInfos({...infos,lastName: value});
-            break;
-            case "address":setInfos({...infos,address: value});
             break;
             default:break;
         }
@@ -36,10 +38,13 @@ export default function RegisterPage({navigation}) {
         if (name == "email") {
             if (emailRegex.test(email)) {
                 setError({...error, email: false})
-            } else setError({...error, email: true});
+            } else {
+                setError({...error, email: true})
+            };
         }
         if (name == "password") {
             if (passwordRegex.test(password)) {
+
                 setError({...error, password: false});
             } else setError({...error, password: true});
 
@@ -49,13 +54,21 @@ export default function RegisterPage({navigation}) {
                 setError({...error, phone: false});
             } else setError({...error, phone: true});
         }
-        if (!error.email && !error.password)
-            error.button = false
-        else error.button = true
+        if (!error.email && !error.password&&!error.phone)
+            setLgnb(true);
+        else setLgnb(false);
     }
     Moment.locale('en');
-    const handleRegister=()=>{
-        register({email,password,phone,...infos,dateOfBirth:Moment(dateOfBirth).format('YYYY-MM-DD')})
+    const handleRegister=async () => {
+        const user = {email, password, phone, ...infos, dateOfBirth: Moment(dateOfBirth).format('YYYY-MM-DD')}
+        const res = await register(user);
+        if (res.status==true) {
+            navigation.navigate('Login')
+        }else {
+            toast.show({
+                title: res.msg,placement: "top"
+            })
+        }
     }
     return (
         <View style={styles.container}>
@@ -71,7 +84,7 @@ export default function RegisterPage({navigation}) {
                         alignItems: 'center'
                     }}>
                         <Text style={styles.title}>S'inscrire</Text>
-                        <FormControl isInvalid={error.email} w="75%" maxW="300px">
+                        <FormControl isInvalid={false} w="75%" maxW="300px">
                             <FormControl.Label>Email</FormControl.Label>
                             <Input
 
@@ -86,7 +99,7 @@ export default function RegisterPage({navigation}) {
                                           color="#2b2939"/>}
                                 value={email}
                                 onChangeText={(email) => setEmail(email)}
-                                placeholder="Ecrire votre Email"
+                                placeholder="Email"
                                 _focus={{backgroundColor: 'white', borderColor: "#bebcf3"}}
                                 _light={{
                                     placeholderTextColor: "black"
@@ -131,31 +144,16 @@ export default function RegisterPage({navigation}) {
                                 }} _dark={{
                                 placeholderTextColor: "blueGray.50"
                             }}/>
-                            <FormControl.Label>Adresse</FormControl.Label>
-                            <Input
-                                w={{
-                                    base: "75%",
-                                    md: "25%",
-                                }} type="text"
-                                value={infos.address}
-                                onChangeText={(address) => handleChange(address,'address')}
-                                placeholder="Adresse"
-                                _focus={{backgroundColor: 'white', borderColor: "#bebcf3"}}
-                                _light={{
-                                    placeholderTextColor: "black"
-                                }} _dark={{
-                                placeholderTextColor: "blueGray.50"
-                            }}/>
+
                             <FormControl.Label>Date de naissance</FormControl.Label>
 
                             <Icon as={<MaterialIcons name="date-range"/>}
                                   size={7}
                                   color="#2b2939"
-                                  onPress={()=>{DateTimePickerAndroid.open({mode:"date", value:dateOfBirth,onChange:(event,date)=>{setDateOfBirth(date);
-                                      console.log(  Moment(date).format('YYYY-MM-DD'))}})}}
+                                  onPress={()=>{DateTimePickerAndroid.open({mode:"date", value:dateOfBirth,onChange:(event,date)=>setDateOfBirth(date)})}}
                             />
                         </FormControl>
-                        <FormControl isInvalid={error.phone} w="75%" maxW="300px">
+                        <FormControl isInvalid={false} w="75%" maxW="300px">
                             <FormControl.Label>Telephone</FormControl.Label>
                             <Input
                                 w={{
@@ -180,7 +178,7 @@ export default function RegisterPage({navigation}) {
                                 numero invalide
                             </FormControl.ErrorMessage>
                         </FormControl>
-                        <FormControl isInvalid={error.password} w="75%" maxW="300px">
+                        <FormControl isInvalid={false} w="75%" maxW="300px">
                             <FormControl.Label>Mot de pass</FormControl.Label>
                             <Input
                                 w={{
@@ -205,7 +203,7 @@ export default function RegisterPage({navigation}) {
                             </FormControl.ErrorMessage>
                         </FormControl>
                         <Button size={"lg"} style={styles.loginBtn} onPress={() => handleRegister()}
-                                isDisabled={error.button}>
+                                isDisabled={false}>
                             <Text style={styles.loginText}>
                                 Enregistrer
                             </Text>

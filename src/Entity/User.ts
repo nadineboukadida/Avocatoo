@@ -8,7 +8,6 @@ export interface IUser{
     id: string,
     firstName: string,
     lastName: string,
-    address:string,
     phoneNumber:string,
     email:string,
     userName:string,
@@ -23,7 +22,6 @@ export class User implements IUser{
     id=''
     firstName=''
     lastName=''
-    address=''
     phoneNumber=''
     email=''
     userName=''
@@ -38,7 +36,6 @@ export class User implements IUser{
         output.id = data.id
         output.firstName = data.firstName
         output.lastName = data.lastName
-        output.address = data.address
         output.phoneNumber = data.phoneNumber
         output.email = data.email
         output.userName = data.userName
@@ -57,7 +54,6 @@ export class User implements IUser{
         }
         output.firstName = data.firstName
         output.lastName = data.lastName
-        output.address = data.address
         output.phoneNumber = data.phoneNumber
         output.email = data.email
         output.userName = data.userName
