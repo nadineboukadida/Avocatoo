@@ -215,7 +215,7 @@ export default function RegisterPage({navigation}) {
             </View>
             <View style={[styles.containerButtons, {justifyContent: 'flex-end'}]}>
 
-                <But align={1} text='Login' color={'#EBE7E3'} onclick={() => navigation.navigate('Login')}></But>
+                <But align={1} text='Login' color={'#FF6957'} onclick={() => navigation.navigate('Login')}></But>
             </View>
 
         </View>

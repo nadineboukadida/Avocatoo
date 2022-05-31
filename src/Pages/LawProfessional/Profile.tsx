@@ -22,7 +22,7 @@ const ProfileScreen = ({navigation}:any) => {
                     <Icon as={<MaterialIcons name="edit"/>} color="#777777" size={7} onPress={()=>{navigation.navigate('EditProfile')}} />
                 </View>
                 <View style={{ height: 50, padding: 5 }}>
-                    <Icon as={<MaterialIcons name="home"/>} color="#777777" size={7}/>
+                    <Icon as={<MaterialIcons name="home"/>} color="#777777" size={7} onPress={()=>{navigation.navigate('LPHome')}}/>
                 </View>
             </View>
             <View style={styles.userInfoSection}>
@@ -37,8 +37,8 @@ const ProfileScreen = ({navigation}:any) => {
                         <Title style={[styles.title, {
                             marginTop: 15,
                             marginBottom: 5,
-                        }]}>John Doe</Title>
-                        <Caption style={styles.caption}>@j_doe</Caption>
+                        }]}>Salmane</Title>
+                        <Caption style={styles.caption}>@Salem</Caption>
                     </View>
                 </View>
             </View>
@@ -46,15 +46,15 @@ const ProfileScreen = ({navigation}:any) => {
             <View style={styles.userInfoSection}>
                 <View style={styles.row}>
                     <MaterialIcons name="location-city" color="#777777" size={20}/>
-                    <Text style={{color: "#777777", marginLeft: 10}}>Kolkata, India</Text>
+                    <Text style={{color: "#777777", marginLeft: 10}}>HoumetSouk, Djerba</Text>
                 </View>
                 <View style={styles.row}>
                     <MaterialIcons name="phone" color="#777777" size={20}/>
-                    <Text style={{color: "#777777", marginLeft: 10}}>+91-900000009</Text>
+                    <Text style={{color: "#777777", marginLeft: 10}}>00000000000</Text>
                 </View>
                 <View style={styles.row}>
                     <MaterialIcons name="email" color="#777777" size={20}/>
-                    <Text style={{color: "#777777", marginLeft: 10}}>john_doe@email.com</Text>
+                    <Text style={{color: "#777777", marginLeft: 10}}>Salem@email.com</Text>
                 </View>
             </View>
 
@@ -63,12 +63,12 @@ const ProfileScreen = ({navigation}:any) => {
                     borderRightColor: '#dddddd',
                     borderRightWidth: 1
                 }]}>
-                    <Title>₹140.50</Title>
-                    <Caption>Wallet</Caption>
+                    <Title>2208</Title>
+                    <Caption>Points</Caption>
                 </View>
                 <View style={styles.infoBox}>
                     <Title>12</Title>
-                    <Caption>Orders</Caption>
+                    <Caption>Tickets</Caption>
                 </View>
             </View>
 

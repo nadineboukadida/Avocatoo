@@ -42,7 +42,7 @@ export default function LoginPage({navigation}) {
                                          color="#2b2939"/>}
                                value={email}
                                onChangeText={(email) => setEmail(email)}
-                               placeholder="Ecrire votre Email"
+                               placeholder="Email"
                                _focus={{backgroundColor: 'white', borderColor: "#bebcf3"}}
                                _light={{
                                    placeholderTextColor: "black"
@@ -66,7 +66,7 @@ export default function LoginPage({navigation}) {
                             size={5} mr="2" color="#2b2939" onPress={() => setShow(!show)}/>}
                         value={password}
                         onChangeText={(password) => setPassword(password)}
-                        placeholder="Ecrire votre mot de pass"
+                        placeholder="mot de pass"
                         _focus={{backgroundColor: 'white', borderColor: "#bebcf3"}}
                         _light={{
                             placeholderTextColor: "black"
@@ -83,7 +83,7 @@ export default function LoginPage({navigation}) {
             </View>
 
             <View style={[styles.containerButtons, {justifyContent: 'flex-end'}]}>
-                <But align={1} text="S'inscrire" color={'#EBE7E3'}
+                <But align={1} text="S'inscrire" color={'#FF6957'}
                      onclick={() => navigation.navigate('Register')}></But>
             </View>
 
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     textContainer: {
         width: '80%',
         alignItems: 'center',
-        backgroundColor: '#EBE7E3',
+        backgroundColor: '#FFFFFF',
         padding: 5,
         borderRadius: 10,
         marginTop: 30,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
         marginBottom:10,
         color: 'black',
         justifyContent: "center",
-        backgroundColor: "#bebcf3",
+        backgroundColor: "#FF6957",
 
     },
     loginText: {

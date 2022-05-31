@@ -14,7 +14,7 @@ import Archive from '../Pages/Archive/ArchivePage';
 import ArchivePage from '../Pages/Archive/ArchivePage';
 import Profile from "../Pages/LawProfessional/Profile";
 import EditProfile from "../Pages/LawProfessional/EditProfile";
-
+import LPHome from "../Pages/HomePage/LPHome/LPHome";
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -31,11 +31,7 @@ const Navigation = () => {
                     />
                 ) : token ? (
                     <>
-                        <Stack.Screen
-                        name="Register"
-                        component={RegisterPage}
-                        options={{headerShown: false}}
-                    />
+
                         <Stack.Screen
                             name="Login"
                             component={LoginPage}
@@ -48,14 +44,28 @@ const Navigation = () => {
                 ) : (
                     <>
                         {/*<Stack.Screen name="welcome" component={LandingPage}/>*/}
+                        <Stack.Screen name="LpProfile" component={Profile}
+                                      options={{headerShown: false}}
+                        />
+                        <Stack.Screen
+                            name="Login"
+                            component={LoginPage}
+                            options={{headerShown: false}}
+                        />
+                        <Stack.Screen
+                            name="Register"
+                            component={RegisterPage}
+                            options={{headerShown: false}}
+                        />
+                        <Stack.Screen name="LPHome" component={LPHome}
+                                      options={{headerShown: false}}
+                        />
 
 
                         <Stack.Screen name="EditProfile" component={EditProfile}
                                       options={{headerShown: false}}
                         />
-                        <Stack.Screen name="LpProfile" component={Profile}
-                                      options={{headerShown: false}}
-                        />
+
                         <Stack.Screen name="Home" component={HomePage} options={{headerShown: false}}/>
 
 

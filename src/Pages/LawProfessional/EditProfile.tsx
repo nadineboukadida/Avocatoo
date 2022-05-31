@@ -75,7 +75,7 @@ const EditProfileScreen = ({navigation}:any) => {
                         </View>
                     </TouchableOpacity>
                     <Text style={{marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>
-                        John Doe
+                        Salem Hamdani
                     </Text>
                 </View>
 
