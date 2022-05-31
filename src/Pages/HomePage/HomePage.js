@@ -31,10 +31,7 @@ export default function HomePage({ route, navigation }) {
       <View style={styles.container}>
         <View style={styles.containerHeader}>
           <View style={styles.title}>
-            <Image
-              style={styles.image2}
-              source={notif}
-            ></Image>
+            <Image style={styles.image2} source={notif}></Image>
           </View>
           <View style={{ height: 50, padding: 5 }}>
             <Image style={styles.image} source={profil}></Image>
@@ -71,10 +68,8 @@ export default function HomePage({ route, navigation }) {
         </View>
         <View style={styles.body}>
           {/* {page==0&&<Messaging sender='salem'></Messaging>} */}
-            {page==0&&<Feed></Feed>}
+          {page == 0 && <Feed />}
           {/* {page==1&&<Home></Home>} */}
-
-
         </View>
       </View>
     </SafeAreaView>
@@ -104,8 +99,8 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     backgroundColor: "white",
     padding: 5,
-    paddingHorizontal:8,
-    height:40,
+    paddingHorizontal: 8,
+    height: 40,
     marginRight: -10,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
@@ -117,7 +112,6 @@ const styles = StyleSheet.create({
     borderColor: "#E5E5DF",
     borderWidth: 3,
     marginLeft: -10,
-  
   },
   image2: {
     width: 28,

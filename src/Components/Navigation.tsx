@@ -37,20 +37,20 @@ const Navigation = () => {
 
                 ) : (
                     <>
-                        {/*<Stack.Screen name="welcome" component={LandingPage}/>*/}
+                        <Stack.Screen name="welcome" component={LandingPage}/>
+                        <Stack.Screen
+                            name="Login"
+                            component={LoginPage}
+                            options={{headerShown: false}}
+                        />
+                        <Stack.Screen name="Home" component={HomePage} options={{headerShown: false}}/>
                         <Stack.Screen name="EditProfile" component={EditProfile}
                                       options={{headerShown: false}}
                         />
                         <Stack.Screen name="LpProfile" component={Profile}
                                       options={{headerShown: false}}
                         />
-                        <Stack.Screen name="Home" component={HomePage} options={{headerShown: false}}/>
 
-                        <Stack.Screen
-                            name="Login"
-                            component={LoginPage}
-                            options={{headerShown: false}}
-                        />
                         <Stack.Screen
                             name="Register"
                             component={RegisterPage}

@@ -13,8 +13,8 @@ import {Icon} from "native-base";
 import notif from "../../../assets/notif.png";
 import profil from "../../../assets/profil.png";
 
-const ProfileScreen = ({navigation}:any) => {
-
+const ProfileScreen = ({navigation, route}:any) => {
+    const {id} = route.params
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.containerHeader}>

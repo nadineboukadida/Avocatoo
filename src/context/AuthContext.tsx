@@ -53,7 +53,8 @@ export const AuthProvider = ({children}:any) => {
             })
 
             const parsed = await res.json();
-            let token = parsed.jwt;
+            console.log(parsed)
+            let token = parsed.data.jwt;
             if (token) setToken(token);
             else throw new Error('token not found');
             await SecureStore.setItemAsync('token', token);

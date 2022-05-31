@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import LPinfo from "../LPinfo.js/LPinfo";
+import LPinfo from "../LPinfo/LPinfo";
 import Message from "../../../Components/Message/Message";
 import profil from "../../../../assets/profil.png";
 import Category from "../../Feed/Category/Category";
