@@ -22,6 +22,7 @@ import { useEffect } from "react/cjs/react.production.min";
 import * as Font from "expo-font";
 import Home from "./Home/Home";
 import Feed from "../Feed/Feed";
+import Messaging from "../Messaging/Messaging";
 export default function HomePage({ route, navigation }) {
   const [page, setpage] = useState(0);
 
@@ -69,9 +70,9 @@ export default function HomePage({ route, navigation }) {
           </View>
         </View>
         <View style={styles.body}>
-          {/* {page==0&&<Home></Home>} */}
-          {page==0&&<Feed></Feed>}
-          {page==1&&<Home></Home>}
+          {/* {page==0&&<Messaging sender='salem'></Messaging>} */}
+            {page==0&&<Feed></Feed>}
+          {/* {page==1&&<Home></Home>} */}
 
 
         </View>
