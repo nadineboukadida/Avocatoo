@@ -72,7 +72,7 @@ export default function Home({navigation,route}) {
   );
   msgs.forEach((e, ind) =>
     msgsComp.push(
-      <TouchableOpacity onPress={()=> navigation.navigate("chat", {id: e.id})}>
+      <TouchableOpacity key={ind} onPress={()=> navigation.navigate("chat", {id: e.id})}>
       <Message
         key={ind}
         title={e.title}

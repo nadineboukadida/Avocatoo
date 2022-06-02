@@ -8,8 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
-import { color } from "native-base/lib/typescript/theme/styled-system";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import profil from "../../../assets/profil.png";
 import { MesssageServiceApi } from "../../Services/Messaging/MessageServiceApi";
 import Message from "../../Entity/Message";
@@ -17,54 +16,63 @@ import moment from "moment";
 import { AuthContext } from "../../context/AuthContext";
 
 const Messaging = ({ route }: any) => {
-  const { idUser } = useContext(AuthContext);
-  const [messages, setMessages] = useState<Message[]>([{
-    content: "aaa",
-    date: moment("2022-06-01T23:15:45.493Z"),
-    from: "",
-    id: "",
-    to: "0d76f78f-0662-45ea-a317-449cba151a46",
-  }]);
-  const [Msg, setMsg] = useState<string>('');
 
+  const myTextInput = useRef()
+  const { userId } = useContext(AuthContext);
+  console.log("userId: ", userId)
+  
+  MesssageServiceApi.receive(userId, (message) => {
+    const newMessages = messages;
+    newMessages.push(message);
+    setMessages(newMessages);
+  });
+
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      content: "hi, thanks for reaching us out",
+      date: moment("2022-06-01T23:15:45.493Z"),
+      from: "03ae9464-51c0-44fb-8734-5b8935526da9",
+      to: userId,
+      ticket: "0d76f78f-0662-45ea-a317-449cba151a46",
+    },
+    {
+      content: "thanks alot",
+      date: moment("2022-06-01T23:15:45.493Z"),
+      from: userId ,
+      to: "03ae9464-51c0-44fb-8734-5b8935526da9",
+      ticket: "0d76f78f-0662-45ea-a317-449cba151a46" 
+    }
+  ]);
+
+  const [Msg, setMsg] = useState<string>("");
+  const [refresh, setRefresh] = useState(false)
   const { id } = route.params;
-  const msgs = [
-    { from: "ismail", to: "salem", content: "message 1" },
-    { from: "ismail", to: "salem", content: "message 1" },
-    { from: "salem", to: "ismail", content: "message 1" },
-    { from: "salem", to: "ismail", content: "message 1" },
-    { from: "ismail", to: "salem", content: "message 1" },
-    { from: "salem", to: "ismail", content: "message 1" },
-    { from: "ismail", to: "salem", content: "message 1" },
-    { from: "salem", to: "ismail", content: "message 1" },
-    { from: "ismail", to: "salem", content: "message 1" },
-    { from: "salem", to: "ismail", content: "message 1" },
-    { from: "salem", to: "ismail", content: "message 1" },
-    { from: "ismail", to: "salem", content: "message 1" },
-    { from: "salem", to: "ismail", content: "message 1" },
-  ];
-  const msgComp = [];
 
   useEffect(() => {
     (async function getData() {
       const receivedMessages = await MesssageServiceApi.getMessagesbyTicketId(
         id
       );
-      
-      setMessages(receivedMessages);
+      console.log(receivedMessages)
+      const newMessages = [...messages, ...receivedMessages];
+      setMessages(newMessages);
     })();
-  }, []);
-  const sendMsg = function (msg:string) {
-      const current= new Message();
-      current.content=msg;
-      current.date= moment();
-      current.from= idUser;
-      current.to=id;
-      const newM = messages
-      newM?.push(current)
-      setMessages(newM);
-      console.log('mssssssssssssssssss',messages)
+  }, [refresh]);
+
+  const sendMsg = function (msg: string) {
+    const message: Message = {
+      content: msg,
+      date: moment(),
+      from: userId,
+      to: "03ae9464-51c0-44fb-8734-5b8935526da9",
+      ticket: id,
     };
+    MesssageServiceApi.send(message)
+    setRefresh(prev => !prev)
+    // @ts-ignore
+    myTextInput.current.clear()
+  };
+
   return (
     <View style={styles.bigContainer}>
       <View style={styles.Receiver}>
@@ -89,9 +97,14 @@ const Messaging = ({ route }: any) => {
       <View style={{ width: "100%", marginBottom: 130, paddingVertical: 20 }}>
         <ScrollView>
           {messages?.map((e, ind) => {
-              console.log('dddddddddddddddd',idUser)
-
-            if (idUser == e.from) {
+            let isSender = false;
+            if(typeof e.from == "string"){
+              isSender = userId == e.from
+            }
+            if (typeof e.from != "string") {
+              isSender = userId == e.from?.id
+            }
+            if (isSender) {
               return (
                 <View key={ind} style={[styles.containerMsg, styles.myMsg]}>
                   <Text style={{ color: "black" }}>{e.content}</Text>
@@ -111,12 +124,17 @@ const Messaging = ({ route }: any) => {
       <View style={styles.footer}>
         <TextInput
           style={[styles.TextInput]}
+          ref={myTextInput}
           placeholder="... write here ..."
           placeholderTextColor="white"
           onChangeText={(e) => setMsg(e)}
           // }
         />
-        <TouchableOpacity onPress={() => { sendMsg(Msg)}}>
+        <TouchableOpacity
+          onPress={() => {
+            sendMsg(Msg);
+          }}
+        >
           <View
             style={{
               paddingLeft: 30,

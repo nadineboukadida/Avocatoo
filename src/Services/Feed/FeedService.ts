@@ -8,7 +8,7 @@ const BASE_PATH = API_PATH + "/posts/";
 export class FeedService {
   static async getAll(): Promise<Post[]> {
     const response = await StandardFetcher.fetch(`${BASE_PATH}`);
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",response)
+    console.log("feed response: ",response)
    
     if (!response) throw new Error();
     let posts: Post[] = response.data.pageData;
