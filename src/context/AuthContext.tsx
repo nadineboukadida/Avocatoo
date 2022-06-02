@@ -2,41 +2,47 @@ import React, {createContext, useEffect, useState} from 'react';
 import {API_PATH} from "../../api-path";
 import {StandardFetcher} from "../Services/Fetcher/StandardFetcher";
 import * as SecureStore from "expo-secure-store";
-
+import jwt from 'jsonwebtoken'
 export const AuthContext = React.createContext({
     isLoading:true,
     token:'',
     splashLoading:false,
+    idUser:"",
     register:(infos:{})=>{},
     login:(email:string, password:string)=>{},
     logout:()=>{},
+    
 });
 const BASE_PATH = API_PATH;
 export const AuthProvider = ({children}:any) => {
     const [token, setToken] = useState('');
+    const [idUser, setidUser] = useState('');
+
     const [isLoading, setIsLoading] = useState(false);
     const [splashLoading, setSplashLoading] = useState(false);
 
-    const register = (infos:{}) => {
-        setIsLoading(true);
-         fetch(`${BASE_PATH}/auth/register`,
+    const register = async  (infos:{}) => {
+      try {
+
+      setIsLoading(true);
+        const res = await  fetch(`${BASE_PATH}/auth/register/client`,
             {
                 method: 'POST',
-                body: JSON.stringify(infos)
+                body: JSON.stringify({...infos})
             })
-            .then(res => res.json())
-            .then(async res => {
-                let token = res.data?.token;
+          const parsed = await res.json();
+        console.log("eeeeeeeeeeeeeeeeeeeeeee",res)
+
+                let token = parsed?.token;
                 if (token) setToken(token);
                 else throw new Error('token not found');
                 await SecureStore.setItemAsync('token', token);
                 setIsLoading(false);
-                console.log(token);
-            })
-            .catch(e => {
+                console.log(token); } 
+            catch(e){
                 console.log(`register error ${e}`);
                 setIsLoading(false);
-            });
+            };
     };
 
     const login = async (email: string, password: string) => {
@@ -53,8 +59,14 @@ export const AuthProvider = ({children}:any) => {
             })
 
             const parsed = await res.json();
-            let token = parsed.jwt;
-            if (token) setToken(token);
+            console.log(parsed)
+            let token = parsed.data.jwt;
+            if (token) {
+                setToken(token);
+                setidUser(parsed.data.id)
+                console.log('my id',parsed)
+            } 
+        
             else throw new Error('token not found');
             await SecureStore.setItemAsync('token', token);
             setIsLoading(false);
@@ -98,7 +110,6 @@ export const AuthProvider = ({children}:any) => {
             console.log(`is logged in error ${e}`);
         }
     };
-
     useEffect( () => {
          isLoggedIn();
     }, []);
@@ -109,6 +120,7 @@ export const AuthProvider = ({children}:any) => {
                 isLoading,
                 token,
                 splashLoading,
+                idUser,
                 register,
                 login,
                 logout,

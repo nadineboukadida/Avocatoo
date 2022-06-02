@@ -55,6 +55,7 @@ export default function RegisterPage({navigation}) {
     }
     Moment.locale('en');
     const handleRegister=()=>{
+        console.log({email,password,phone,...infos,dateOfBirth:Moment(dateOfBirth).format('YYYY-MM-DD')})
         register({email,password,phone,...infos,dateOfBirth:Moment(dateOfBirth).format('YYYY-MM-DD')})
     }
     return (
@@ -205,7 +206,7 @@ export default function RegisterPage({navigation}) {
                             </FormControl.ErrorMessage>
                         </FormControl>
                         <Button size={"lg"} style={styles.loginBtn} onPress={() => handleRegister()}
-                                isDisabled={error.button}>
+                               >
                             <Text style={styles.loginText}>
                                 Enregistrer
                             </Text>

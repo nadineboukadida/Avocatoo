@@ -1,6 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 export class StandardFetcher{
     public static async fetch(url: string, options: RequestInit = {}) {
+        console.log(url)
         const headers = await  StandardFetcher.getDefaultHeaders(options);
 
         return fetch(url, {...options, headers})

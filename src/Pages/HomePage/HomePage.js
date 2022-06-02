@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   PushNotificationIOS,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import { Dimensions } from "react-native";
@@ -23,21 +23,23 @@ import * as Font from "expo-font";
 import Home from "./Home/Home";
 import Feed from "../Feed/Feed";
 import Messaging from "../Messaging/Messaging";
+import ArchivePage from "../Archive/ArchivePage";
+import { AuthContext } from "../../context/AuthContext";
 export default function HomePage({ route, navigation }) {
   const [page, setpage] = useState(0);
+  const { logout } = useContext(AuthContext);
 
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <View style={styles.containerHeader}>
           <View style={styles.title}>
-            <Image
-              style={styles.image2}
-              source={notif}
-            ></Image>
+            <Image style={styles.image2} source={notif}></Image>
           </View>
           <View style={{ height: 50, padding: 5 }}>
-            <Image style={styles.image} source={profil}></Image>
+            <TouchableOpacity onPress={logout}>
+              <Image style={styles.image} source={profil}></Image>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -71,10 +73,9 @@ export default function HomePage({ route, navigation }) {
         </View>
         <View style={styles.body}>
           {/* {page==0&&<Messaging sender='salem'></Messaging>} */}
-            {page==0&&<Feed></Feed>}
-          {/* {page==1&&<Home></Home>} */}
-
-
+          {page == 0 && <Feed navigation={navigation}/>}
+          {page == 1 && <Home navigation={navigation} route={route}></Home>}
+          {page == 2 && <ArchivePage></ArchivePage>}
         </View>
       </View>
     </SafeAreaView>
@@ -104,8 +105,8 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     backgroundColor: "white",
     padding: 5,
-    paddingHorizontal:8,
-    height:40,
+    paddingHorizontal: 8,
+    height: 40,
     marginRight: -10,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
@@ -117,7 +118,6 @@ const styles = StyleSheet.create({
     borderColor: "#E5E5DF",
     borderWidth: 3,
     marginLeft: -10,
-  
   },
   image2: {
     width: 28,

@@ -88,9 +88,9 @@ const ArchivePage = () => {
       }}
       style={styles.container}
     >
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <Text>Archive</Text>
-      </View>
+      </View> */}
 
       <View style={styles.folders}>
       {list()}
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     height: 677,
   },
   folders: {
-    paddingTop:30,
+    paddingTop:200,
     overflow:"hidden",
     flexDirection: "column",
     justifyContent: "center",

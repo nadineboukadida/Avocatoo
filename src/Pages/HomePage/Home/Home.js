@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import LPinfo from "../LPinfo.js/LPinfo";
+import LPinfo from "../LPinfo/LPinfo";
 import Message from "../../../Components/Message/Message";
 import profil from "../../../../assets/profil.png";
 import Category from "../../Feed/Category/Category";
 
-export default function Home() {
+export default function Home({navigation,route}) {
   const [Problem, setProblem] = useState("");
   const [info, setinfo] = useState("");
 
@@ -20,28 +20,34 @@ export default function Home() {
   const msgs = [
     {
       name: "Ismail Charfi",
-      title: "Marti tharbitni bil 9wi",
+      title: "Thank you for your help !",
       date: "2 days ago",
-      lastMsg: "ismail yhib salem b jnoun",
       image: profil,
+      id:"0d76f78f-0662-45ea-a317-449cba151a46",
     },
     {
       name: "Ismail Charfi",
-      title: "Marti tharbitni bil 9wi",
+      title: "Hello I have this problem related to ...",
       date: "2 days ago",
       image: profil,
+      id:"0d76f78f-0662-45ea-a317-449cba151a46",
+
     },
     {
       name: "Ismail Charfi",
-      title: "Marti tharbitni bil 9wi",
+      title: "I will take this to court next ...",
       date: "2 days ago",
       image: profil,
+      id:"0d76f78f-0662-45ea-a317-449cba151a46",
+
     },
     {
       name: "Ismail Charfi",
-      title: "Marti tharbitni bil 9wi",
+      title: "So much happened ...",
       date: "2 days ago",
       image: profil,
+      id:"0d76f78f-0662-45ea-a317-449cba151a46",
+
     },
   ];
   const msgsComp = [];
@@ -49,16 +55,16 @@ export default function Home() {
 
   const cat = [
     {
-      name: "category num1",
+      name: "Child Abuse",
     },
     {
-      name: "category num2",
+      name: "Accident",
     },
     {
-      name: "category num3",
+      name: "Fight",
     },
     {
-      name: "category num4",
+      name: "Domestic Violence",
     },
   ];
   cat.forEach((e, ind) =>
@@ -66,13 +72,14 @@ export default function Home() {
   );
   msgs.forEach((e, ind) =>
     msgsComp.push(
+      <TouchableOpacity onPress={()=> navigation.navigate("chat", {id: e.id})}>
       <Message
         key={ind}
         title={e.title}
         name={e.name}
         date={e.date}
         image={e.image}
-      ></Message>
+      ></Message></TouchableOpacity>
     )
   );
  

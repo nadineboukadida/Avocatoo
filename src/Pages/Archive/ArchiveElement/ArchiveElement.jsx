@@ -22,11 +22,12 @@ const ArchiveElement = ({ text, image, shown, ind }) => {
               </View>
             </View>
             <View style={styles.expertise}>
-              <Text style={{color:'white'}}>Expertise : </Text>
-              <Text style={{color:'lavender'}}>tag1 tag2tag1 tag2 tag3 tag1 tag2 </Text>
+              <Text style={{color:'white'}}>Question : </Text>
+              <Text style={{color:'lavender'}}>fight with a man at a Cafe , he is taking me to court !</Text>
             </View>
             <View style={styles.button}>
-              <View style={styles.btn}><Text>More</Text></View>
+              <View style={styles.btn}>
+                <Text>More</Text></View>
             </View>
           </View></View>
         </View>
@@ -54,7 +55,8 @@ const styles = StyleSheet.create({
   expertise:{
     marginTop:20,
     color:"white",
-    width:220
+    width:220,
+    height:40
   },
   text: {
     color: "white",

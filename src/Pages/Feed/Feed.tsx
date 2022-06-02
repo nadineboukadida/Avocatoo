@@ -1,101 +1,81 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import Post from './Post.tsx/Post'
-import Category from './Category/Category'
-import Tag from '../../Components/Tags/Tag'
-import LPinfo from '../HomePage/LPinfo.js/LPinfo'
-const LawP = [
-  {
-    name: "nadine jones",
-    gender: "F",
-    id: 1,
-    bio: "Porro itaque, consequuntur vero optio et fugit voluptas quaerat facere ad delectus quis a ",
-  },
-  {
-    name: "nadine jones",
-    id: 2,
-    gender: "F",
-    bio: "Porro itaque, consequuntur vero optio et fugit voluptas quaerat facere ad delectus quis a ",
-  },
-  {
-    name: "nadine jones",
-    gender: "M",
-    id: 3,
-    bio: "Porro itaque, consequuntur vero optio et fugit voluptas quaerat facere ad delectus quis a ",
-  },
-  {
-    name: "nadine jones",
-    gender: "M",
-    id: 4,
-    bio: "Porro itaque, consequuntur vero optio et fugit voluptas quaerat facere ad delectus quis a ",
-  },
-  {
-    name: "nadine jones",
-    gender: "F",
-    id: 5,
-    bio: "Porro itaque, consequuntur vero optio et fugit voluptas quaerat facere ad delectus quis a ",
-  },
-  {
-    name: "nadine jones",
-    gender: "M",
-    id: 6,
-    bio: "Porro itaque, consequuntur vero optio et fugit voluptas quaerat facere ad delectus quis a ",
-  },
-];
-const Feed = () => {
-  const listP = function () {
-    const tab = [];
-    for (let i = 0; i < LawP.length; i++) {
-      tab.push(
-        <TouchableOpacity
-          key={i}
-          style={{ alignItems: "center" }}
-          // onPress={() => setinfo(i)}
-        >
-          <LPinfo info={LawP[i]}></LPinfo>
-        </TouchableOpacity>
-      );
-    }
-    return tab;
-  };
- const cat = [{name:'category1'},{name:'category2'},{name:'category2'}];
- const catComp=[]
- cat.forEach((e,ind)=> {
-     
-      catComp.push( <Category key={ind} text={e.name} color ={'#FF6957'}></Category>)
- })
+import {
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useEffect } from "react";
+import LPinfo from "../HomePage/LPinfo/LPinfo";
+import { Category as CategoryEntity } from "../../Entity/Category";
+import { useState } from "react";
+import { Post as PostEntity } from "../../Entity/Post";
+import { FeedService } from "../../Services/Feed/FeedService";
+import { CategoryService } from "../../Services/Category/CategoryService";
+import Category from "./Category/Category";
+import Post from "./Post/Post";
+import { User } from "../../Entity/User";
+import { UserService } from "../../Services/User/UserService";
+
+const Feed = ({ navigation }: any) => {
+  const [posts, setPosts] = useState<PostEntity[]>([]);
+  const [categories, setCategories] = useState<CategoryEntity[]>([]);
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryEntity | null>(null);
+  const [lps, setLps] = useState<User[]>([]);
+
+  useEffect(() => {
+    (async function getData() {
+      const receivedPosts = await FeedService.getAll();
+      const receivedCategories = await CategoryService.getAll();
+      const receivedLps = await UserService.getLps();
+      setPosts(receivedPosts);
+      setCategories(receivedCategories);
+      setLps(receivedLps);
+    })();
+  }, []);
+
   return (
-    <View style={{paddingBottom:110}}>
-      <View style={{width:'90%', alignSelf:'center',paddingBottom:5}}>
-          <ScrollView horizontal={true}>
-      {catComp}
-
-
-
-     </ScrollView>
-</View>
-<View style={styles.LPlist}>
-          <ScrollView horizontal={true} >
-            {listP()}
-          </ScrollView>
-        </View>
+    <View style={{ paddingBottom: 110 }}>
+      <View style={{ width: "90%", alignSelf: "center", paddingBottom: 5 }}>
+        <ScrollView horizontal={true}>
+          {categories.map((category) => (
+            <TouchableOpacity
+              key={Math.random()}
+              onPress={() => setSelectedCategory(category)}
+            >
+              <Category text={category.name} color={"#A9498E"} />
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+      <View style={styles.LPlist}>
+        <ScrollView horizontal={true}>
+          {lps.map((lp) => (
+            <TouchableOpacity
+              key={Math.random()}
+              style={{ alignItems: "center" }}
+              onPress={() => navigation.navigate("LpProfile", { id: lp.id })}
+            >
+              <LPinfo />
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
       <ScrollView>
-
-     <Post color1={'#A6D3F2'} color2= {'purple'} color3={'#F7D88C'}></Post>
-     <Post color1={'#A6D3F2'} color2= {'#FF6957'} color3={'black'}></Post>
-     <Post color1={'#A6D3F2'} color2= {'#FF6957'} color3={'#F7D88C'}></Post>
-     <Post color1={'#A6D3F2'} color2= {'#FF6957'} color3={'#F7D88C'}></Post>
-    
-     </ScrollView>
-
+        {posts.map((post) => (
+          <Post post={post} key={Math.random()} />
+        ))}
+      </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default Feed
+export default Feed;
 
-const styles = StyleSheet.create({  LPlist: {
-  width: "100%",
-  // flex: 1,
-  paddingTop: 1,
-},})
+const styles = StyleSheet.create({
+  LPlist: {
+    width: "100%",
+    // flex: 1,
+    paddingTop: 1,
+  },
+});
